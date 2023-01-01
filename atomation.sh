@@ -26,5 +26,5 @@ column inventorydraft.html >> /var/www/html/inventory.html
 
 
 
-sudo su >> /etc/cron.d/automation.sh
-0 2 * * * /root/Automation_Project/atomation.sh >> /etc/cron.d/automation.sh 
+sudo su >> /etc/cron.d/automation
+0 2 * * * /root/Automation_Project/atomation >> /etc/cron.d/automation.sh 
