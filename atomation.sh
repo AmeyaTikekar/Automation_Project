@@ -8,23 +8,27 @@ sudo systemctl enable apache2
 
 systemctl is-active apache2
 
-timestamp = $(date '+%Y-%m-%d-%H-%M-%S')
+#timestp1 = $(date "+%Y-%m-%d-%H-%M-%S")
 
-tar -czvf ameya-https-logs-$(timestamp).tar.gz /var/log/apache2
+tar -czvf ameya-https-logs-$(date "+%Y-%m-%d-%H-%M-%S").tar.gz /var/log/apache2
 
 cp ./*.tar.gz /tmp
 
+if [ ! -e /var/www/html/inventory.html ]
+then echo "Log Type" > inventorydraft.html
+      echo "Time created" >> inventorydraft.html
+      echo "Type" >> inventorydraft.html
+      echo "Size" >> inventorydraft.html
+      column inventorydraft.html > /var/www/html/inventory.html
+fi     
+
+     echo "httpd-logs" > inventorydraft.html
+     echo $(date "+%Y%m%d-%H%M%S") >> inventorydraft.html
+     echo "tar" >> inventorydraft.html 
+     du -h /tmp/ameya* | sort -nr | tail -1 | awk '{print $1}' >> inventorydraft.html
+     column inventorydraft.html >> /var/www/html/inventory.html
 
 
-
-echo "https-log" > inventorydraft.html
-echo $(date "+%Y%m%d-%H%M%S") >> inventorydraft.html
-echo "tar" >> inventorydraft.html
-du -h ameya-https-logs-$(timestamp).tar.gz | awk '{print $1}' >> inventorydraft.html
-
-column inventorydraft.html >> /var/www/html/inventory.html
+	 echo "0 2 * * * root /root/Automation_Project/atomation.sh" > /etc/cron.d/automation
 
 
-
-sudo su >> /etc/cron.d/automation.sh
-0 2 * * * /root/Automation_Project/atomation.sh >> /etc/cron.d/automation.sh 
