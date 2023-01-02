@@ -1,3 +1,4 @@
+#task1
 sudo apt update -y
 
 sudo apt install apache2
@@ -14,6 +15,8 @@ tar -czvf ameya-https-logs-$(date "+%Y-%m-%d-%H-%M-%S").tar.gz /var/log/apache2
 
 cp ./*.tar.gz /tmp
 
+#inventory
+
 if [ ! -e /var/www/html/inventory.html ]
 then echo "Log Type" > inventorydraft.html
       echo "Time created" >> inventorydraft.html
@@ -29,6 +32,6 @@ fi
      column inventorydraft.html >> /var/www/html/inventory.html
 
 
+#cron
 	 echo "0 2 * * * root /root/Automation_Project/atomation.sh" > /etc/cron.d/automation
-
 
