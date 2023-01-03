@@ -1,4 +1,3 @@
-#task1
 sudo apt update -y
 
 sudo apt install apache2
@@ -10,12 +9,15 @@ sudo systemctl enable apache2
 systemctl is-active apache2
 
 #timestp1 = $(date "+%Y-%m-%d-%H-%M-%S")
+namex="ameya"
 
-tar -czvf ameya-https-logs-$(date "+%Y-%m-%d-%H-%M-%S").tar.gz /var/log/apache2
+tar -czvf $namex-https-logs-$(date "+%Y-%m-%d-%H-%M-%S").tar.gz /var/log/apache2
 
-cp ./*.tar.gz /tmp
+cp ./*.tar.gz /tmp/tar/
 
-#inventory
+s3_bucket="upgrad-ameya"
+
+aws s3 sync /tmp/tar/ s3://$s3_bucket
 
 if [ ! -e /var/www/html/inventory.html ]
 then echo "Log Type" > inventorydraft.html
@@ -32,6 +34,7 @@ fi
      column inventorydraft.html >> /var/www/html/inventory.html
 
 
-#cron
 	 echo "0 2 * * * root /root/Automation_Project/atomation.sh" > /etc/cron.d/automation
+
+
 
